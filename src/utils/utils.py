@@ -1,8 +1,8 @@
-from jose import jwt,JWTError
 from fastapi import HTTPException
 from fastapi.security import HTTPBearer
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
+from jose import jwt,JWTError
 import smtplib,random
 
 security = HTTPBearer()
@@ -20,7 +20,7 @@ def verify_token(token: str):
     try:
         payload = jwt.decode(token, secret_key, algorithms=algorithms)
         return payload
-    except JWTError:
+    except jwtError:
         raise HTTPException(status_code=401, detail="Invalid or expired token")
     
 
@@ -62,8 +62,9 @@ def create_refresh_token(data: dict, expires_delta: timedelta = None):
 def verify_token(token:str):
     security_token = "insta-app"
     algorithm = ["HS256"]
-    try :
+    try:
         payload = jwt.decode(token,security_token,algorithms=algorithm)
         return payload
     except JWTError:
         raise HTTPException(status_code=401,detail="Invalid or expire token")
+    

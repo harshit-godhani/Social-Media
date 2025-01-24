@@ -29,8 +29,8 @@ def profile_update_user(update: UserProfileUpdateschema, db: Depends = Session(g
     if not update.user_id:
         raise HTTPException(status_code=400, detail="Missing 'user_id' in request.")
 
-    # if current_user["id"] != update.user_id:
-    #     raise HTTPException(status_code=400, detail="User ID mismatch.")
+    if current_user["id"] != update.user_id:
+        raise HTTPException(status_code=400, detail="User ID mismatch.")
     
     user = db.query(UserModel).filter(UserModel.id == update.user_id).first()
     if not user:

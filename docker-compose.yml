@@ -1,0 +1,23 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8001:8000"
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: test1
+volumes:
+  db_data:
+
+
+
+
+
+

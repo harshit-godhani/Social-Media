@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from database import get_db
 from src.utils.utils import security
 
-user_router = APIRouter()
+user_router = APIRouter(tags=["Auth"])
 
 @user_router.post("/register/")
 def user_regi(user:UserSchema,db:Session= Depends(get_db)):

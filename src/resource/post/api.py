@@ -7,7 +7,7 @@ from src.functionality.post.postlike import post_like
 from src.utils.utils import security
 
 
-post_router = APIRouter()
+post_router = APIRouter(tags=["User-Post"])
 
 @post_router.post("/create-post/")
 def create_user_post(user_id: int = Form(...),

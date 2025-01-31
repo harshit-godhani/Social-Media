@@ -6,7 +6,7 @@ from src.functionality.comment.commentlike import comment_like
 from src.resource.comment.schema import CommentSchema,CommentLikeSchema
 
 
-comment_router = APIRouter()
+comment_router = APIRouter(tags=["Comment"])
 
 
 @comment_router.post("/create-comment/")

@@ -51,7 +51,7 @@ def rset_password(request:UserResetPassSchema, db:Session = Depends(get_db)):
 @user_router.post("/verify-otp/")
 def vfy_otp(request:UserVerifyOtpSchema,db:Session=Depends(get_db)):
     try:
-        verify =user_veritfy_otp(request=request)
+        verify =user_veritfy_otp(request=request,db=db)
 
         return verify
     except Exception as e:

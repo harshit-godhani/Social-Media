@@ -1,8 +1,12 @@
-SECRET_KEY = "insta-app"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
-REFRESH_TOKEN_EXPIRE_MINUTES = 60
+from dotenv import load_dotenv
+import os
 
-DATABASE_URL = "postgresql://postgres:123456@host.docker.internal:5432/test1"
-# DATABASE_URL = "postgresql://postgres:123456@localhost:5432/test1"
+load_dotenv()
+
+class Config:
+    SECRET_KEY = os.getenv("SECRET_KEY")
+    ALGORITHM = os.getenv("ALGORITHM")
+    ACCESS_TOKEN = os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES")
+    REFRESH_TOKEN = os.getenv("REFRESH_TOKEN_EXPIRE_MINUTES")
+    DB_URL = os.getenv("DATABASE_URL")
 

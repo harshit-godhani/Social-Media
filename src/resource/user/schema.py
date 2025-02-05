@@ -1,17 +1,17 @@
-from pydantic import BaseModel
-from datetime import datetime
+from pydantic import BaseModel,EmailStr
+
 
 class UserSchema(BaseModel):
     username : str
-    email : str
+    email : EmailStr
     password : str
 
 class UserLoginSchema(BaseModel):
-    email: str
+    email: EmailStr
     password: str
 
 class UserForgetPassSchema(BaseModel):
-    email :str
+    email : EmailStr
 
 class UserResetPassSchema(BaseModel):
     username : str
@@ -19,6 +19,6 @@ class UserResetPassSchema(BaseModel):
     conform_password:str  
 
 class UserVerifyOtpSchema(BaseModel):
-    email:str
-    otp:str 
+    email: EmailStr
+    otp: int
 

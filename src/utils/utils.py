@@ -4,13 +4,14 @@ from passlib.context import CryptContext
 from datetime import datetime, timedelta
 from jose import jwt,JWTError
 import smtplib,random
+from src.config import Config
 
 security = HTTPBearer()
 
-SECRET_KEY = "insta-app"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
-REFRESH_TOKEN_EXPIRE_MINUTES = 60
+secret_key =Config.SECRET_KEY
+algorithm = Config.ALGORITHM
+access_token = Config.ACCESS_TOKEN
+refresh_token = Config.REFRESH_TOKEN
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -20,7 +21,7 @@ def verify_token(token: str):
     try:
         payload = jwt.decode(token, secret_key, algorithms=algorithms)
         return payload
-    except jwtError:
+    except JWTError:
         raise HTTPException(status_code=401, detail="Invalid or expired token")
     
 
@@ -50,14 +51,14 @@ def verify_password(pain_password,hashed_password):
 
 def create_access_token(data: dict, expires_delta: timedelta = None):
     to_encode = data.copy()
-    expire = datetime.utcnow() + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
+    expire = datetime.utcnow() + (expires_delta or timedelta(minutes=access_token))
     to_encode.update({"exp": expire})
-    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return jwt.encode(to_encode, secret_key, algorithm=algorithm)
 def create_refresh_token(data: dict, expires_delta: timedelta = None):
     to_encode = data.copy()
-    expire = datetime.utcnow() + (expires_delta or timedelta(minutes=REFRESH_TOKEN_EXPIRE_MINUTES))
+    expire = datetime.utcnow() + (expires_delta or timedelta(minutes=refresh_token))
     to_encode.update({"exp": expire})
-    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return jwt.encode(to_encode, secret_key, algorithm=algorithm)
 
 def verify_token(token:str):
     security_token = "insta-app"

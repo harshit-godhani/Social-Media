@@ -8,6 +8,7 @@ from fastapi import HTTPException,Depends, Security
 from database import get_db
 from pydantic import validate_email
 
+
 security = HTTPBearer()
 
 otp_store={}

@@ -14,16 +14,15 @@ security = HTTPBearer()
 otp_store={}
 
 def create_user(user:UserSchema,db : Session = Depends (get_db)):
-
     try:
         validate_email(user.email)
     except Exception as e:
         raise HTTPException(status_code=400,detail=str(e))
 
 
-    # db_user =db.query(UserModel).filter(UserModel.email==user.email).first()
-    # if db_user:
-    #     raise HTTPException(status_code=200,detail="Email already register")
+    db_user =db.query(UserModel).filter(UserModel.email==user.email).first()
+    if db_user:
+        raise HTTPException(status_code=200,detail="Email already register")
     
     hash_password = pwd_context.hash(user.password)
 

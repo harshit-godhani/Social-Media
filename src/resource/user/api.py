@@ -14,7 +14,7 @@ def user_regi(user:UserSchema,db:Session= Depends(get_db)):
         register = create_user(user=user,db=db)
         return register
     except Exception as e:
-        return HTTPException(status_code=500,detail=str(e)) 
+        raise HTTPException(status_code=500,detail=str(e)) 
     
 @user_router.post("/login/")
 def user_log(user:UserLoginSchema,db:Session= Depends(get_db)):

@@ -16,11 +16,12 @@ def create_user_post(user_id: int = Form(...),
                      title: str = Form(...),
                      content: str = Form(...),
                      db: Session = Depends(get_db),
-                     image: UploadFile = File(...)
+                     image: UploadFile = File(...),
+                     token :str = Security(security)
                     ):
     try:
         user_post = PostSchema(title=title,content=content, user_id=user_id)
-        post = create_post(post=user_post,db=db,image=image)
+        post = create_post(post=user_post,db=db,image=image,token=token)
         return post
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -55,9 +56,9 @@ def create_user_post(user_id: int = Form(...),
 
 
 @post_router.patch("/update-post/")
-def user_post_update(post:PostUpdateSchema,db:Session=Depends(get_db)):
+def user_post_update(post:PostUpdateSchema,db:Session=Depends(get_db),token :str = Security(security)):
     try:
-        patch_post=post_update(post=post,db=db)
+        patch_post=post_update(post=post,db=db,token=token)
         return patch_post
     except Exception as e:
         raise HTTPException(status_code=500,detail=str(e))

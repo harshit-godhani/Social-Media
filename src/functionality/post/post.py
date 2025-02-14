@@ -8,9 +8,8 @@ from fastapi import File, HTTPException,Depends,Security,UploadFile
 from src.utils.utils import verify_token,security
 
 
-def  create_post(post:PostSchema,db: Session=Depends(get_db), image: UploadFile=File(...)):
+def create_post(post:PostSchema,db: Session=Depends(get_db), image: UploadFile=File(...),token :str = Security(security)):
     try:
-        
         upload_folder = "images/"
         os.makedirs(upload_folder, exist_ok=True)
         file_path = os.path.join(upload_folder, image.filename)
@@ -19,7 +18,10 @@ def  create_post(post:PostSchema,db: Session=Depends(get_db), image: UploadFile=
             shutil.copyfileobj(image.file, file_buffer)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"File upload failed: {str(e)}")
-
+    try:
+      token_data = verify_token(token.credentials)
+    except Exception :
+        raise HTTPException(status_code=400,detail="Invalid or expire token")
 
     db_post=PostModel(
             user_id= post.user_id,
@@ -43,8 +45,12 @@ def  create_post(post:PostSchema,db: Session=Depends(get_db), image: UploadFile=
         }
     }
         
-def post_update(post:PostUpdateSchema,db:Session=Depends(get_db)):
+def post_update(post:PostUpdateSchema,db:Session=Depends(get_db),token :str = Security(security)):
     db_post= db.query(PostModel).filter(PostModel.id==post.id).first()
+    try:
+      token_data = verify_token(token.credentials)
+    except Exception :
+        raise HTTPException(status_code=400,detail="Invalid or expire token")
 
     if not db_post:
         raise HTTPException(status_code=404,detail="Post not found")

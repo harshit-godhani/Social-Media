@@ -3,7 +3,7 @@ from fastapi.security import HTTPBearer
 from src.resource.user.model import UserModel
 from src.resource.user.schema import UserSchema,UserResetPassSchema,UserForgetPassSchema,UserLoginSchema,UserVerifyOtpSchema
 from sqlalchemy.orm import Session
-from src.utils.utils import create_access_token,pwd_context,verify_password,otp_genrates,send_email,verify_token
+from src.utils.utils import create_access_token,create_refresh_token,pwd_context,verify_password,otp_genrates,send_email,verify_token
 from fastapi import HTTPException,Depends, Security
 from database import get_db
 from pydantic import validate_email
@@ -61,16 +61,24 @@ def user_login(user:UserLoginSchema,db : Session =Depends(get_db)):
     if  not db_user or not verify_password(user.password,db_user.password):
         raise HTTPException(status_code=400,detail="Incorrect deatlis...!")
 
-    access_token = create_access_token(data={"sub": user.email})
+    access_token = create_access_token(data={"sub": user.email,"id":db_user.id})
+    refresh_token = create_refresh_token(data={"sub": user.email,"id":db_user.id})
 
-    return {"Message":"Login Successfully",
-            "access_token": access_token,
-            "token_type": "bearer"
+    return {
+        "Message":"Login Successfully",
+        "access_token": access_token,
+        "refresh_token": refresh_token,
+        "token_type": "bearer"
     }
 
   
-def user_forgot_pass(user:UserForgetPassSchema,db:Session=Depends(get_db)):
+def user_forgot_pass(user:UserForgetPassSchema,db:Session=Depends(get_db),token :str = Security(security)):
     db_user = db.query(UserModel).filter(UserModel.email==user.email).first()
+    try:
+      token_data = verify_token(token.credentials)
+    except Exception :
+        raise HTTPException(status_code=400,detail="Invalid or expire token")
+
     if not db_user:
         raise HTTPException(status_code=404,detail="User email not found ")
 
@@ -87,8 +95,8 @@ def user_forgot_pass(user:UserForgetPassSchema,db:Session=Depends(get_db)):
     return {"Status":"Success",
             "Message":"OTP has been sent on your email..."}
 
-def user_veritfy_otp(request:UserVerifyOtpSchema):
 
+def user_veritfy_otp(request:UserVerifyOtpSchema):
     try:
         if request.email not in otp_store:
          raise HTTPException(status_code=404,detail="OTP is not valid Its Expires")
@@ -112,8 +120,12 @@ def user_veritfy_otp(request:UserVerifyOtpSchema):
         print(f"Unexpeced error:  {e}")
         raise HTTPException(status_code=500,detail="An internal sever error occurred")
 
-def user_reset_pass(request :UserResetPassSchema,db:Session = Depends(get_db)):
+def user_reset_pass(request :UserResetPassSchema,db:Session = Depends(get_db),token :str = Security(security)):
     db_user =db.query(UserModel).filter(UserModel.username == request.username).first()
+    try:
+      token_data = verify_token(token.credentials)
+    except Exception :
+        raise HTTPException(status_code=400,detail="Invalid or expire token")
 
     if not db_user:
         raise HTTPException(status_code=404,detail="User not found and name is mismathced")
@@ -131,8 +143,8 @@ def user_reset_pass(request :UserResetPassSchema,db:Session = Depends(get_db)):
         "Message":"Password reset successfully"
     }
 
-def user_delete(user_id:int,db:Session=Depends(get_db),token :str = Security(security)):
 
+def user_delete(user_id:int,db:Session=Depends(get_db),token :str = Security(security)):
     try:
       token_data = verify_token(token.credentials)
     except Exception :

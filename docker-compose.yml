@@ -1,4 +1,9 @@
 services:
+  redis:
+    image: redis
+    container_name: redis-container
+    ports:
+      - "6379:6379"
   app:
     build: .
     ports:
@@ -15,6 +20,8 @@ services:
       POSTGRES_DB: test1
 volumes:
   db_data:
+
+
 
 
 

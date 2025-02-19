@@ -97,28 +97,21 @@ def user_forgot_pass(user:UserForgetPassSchema,db:Session=Depends(get_db),token 
 
 
 def user_veritfy_otp(request:UserVerifyOtpSchema):
-    try:
-        if request.email not in otp_store:
-         raise HTTPException(status_code=404,detail="OTP is not valid Its Expires")
-    
-        
-        stored_otp = otp_store[request.email]
-    
-        if request.otp != stored_otp:
-            raise HTTPException(status_code=400,detail="Inavlid OTP please try again...!!!")
-        
-        del otp_store[request.email]
+    if request.email not in otp_store:
+        raise HTTPException(status_code=404,detail="OTP is not valid Its Expires")
 
-        return{"Status":"Success",
-            "message":"OTP veryfied successfully",
-            "user":"User Successfully Register"}
     
-    except Exception as e:
-        raise e
+    stored_otp = otp_store[request.email]
+
+    if request.otp != stored_otp:
+        raise HTTPException(status_code=400,detail="Inavlid OTP please try again...!!!")
     
-    except Exception as e:
-        print(f"Unexpeced error:  {e}")
-        raise HTTPException(status_code=500,detail="An internal sever error occurred")
+    del otp_store[request.email]
+
+    return{"Status":"Success",
+        "message":"OTP veryfied successfully",
+        "user":"User Successfully Register"}
+
 
 def user_reset_pass(request :UserResetPassSchema,db:Session = Depends(get_db),token :str = Security(security)):
     db_user =db.query(UserModel).filter(UserModel.username == request.username).first()

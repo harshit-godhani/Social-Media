@@ -1,4 +1,4 @@
-from fastapi import HTTPException,APIRouter,Depends, Security
+from fastapi import HTTPException,APIRouter,Depends, Security,Request
 from fastapi.security import HTTPAuthorizationCredentials
 from src.resource.user.model import UserModel
 from src.functionality.user.user import create_user,user_login,user_reset_pass,user_forgot_pass,user_veritfy_otp,user_delete
@@ -9,6 +9,11 @@ from src.utils.utils import create_access_token, security
 from src.config import Config
 from jose import jwt  
 from datetime import timedelta
+from slowapi import Limiter
+from slowapi.util import get_remote_address
+
+
+limiter = Limiter(key_func=get_remote_address)
 
 
 ALO = Config.ALGORITHM
@@ -35,10 +40,11 @@ def user_log(user:UserLoginSchema,db:Session= Depends(get_db)):
         return HTTPException(status_code=500,detail=str(e))
     
 @user_router.get("/get-users/")
-def get_all_users(db: Session = Depends(get_db)):
+@limiter.limit("5/second")
+def get_all_users(request:Request,db: Session = Depends(get_db)):
     try:
         users = db.query(UserModel).all()
-        return users
+        return {"massage":"API Throttimg aplyed"},users
     except Exception as e:
         return HTTPException(status_code=500,detail=Depends(str(e)))
     

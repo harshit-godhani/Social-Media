@@ -21,9 +21,9 @@ SEC = Config.SECRET_KEY
 ACCESS = Config.ACCESS_TOKEN
 REFRESH = Config.REFRESH_TOKEN
 
-user_router = APIRouter(tags=["Auth"])
+user_router = APIRouter()
 
-@user_router.post("/register/")
+@user_router.post("/register/",tags=["Auth"])
 def user_regi(user:UserSchema,db:Session= Depends(get_db)):
     try:
         register = create_user(user=user,db=db)
@@ -31,7 +31,7 @@ def user_regi(user:UserSchema,db:Session= Depends(get_db)):
     except Exception as e:
         raise HTTPException(status_code=500,detail=str(e)) 
     
-@user_router.post("/login/")
+@user_router.post("/login/",tags=["Auth"])
 def user_log(user:UserLoginSchema,db:Session= Depends(get_db)):
     try:
         login = user_login(user=user,db=db)
@@ -39,7 +39,7 @@ def user_log(user:UserLoginSchema,db:Session= Depends(get_db)):
     except Exception as e:
         return HTTPException(status_code=500,detail=str(e))
     
-@user_router.get("/get-users/")
+@user_router.get("/get-users/",tags=["Auth"])
 @limiter.limit("5/second")
 def get_all_users(request:Request,db: Session = Depends(get_db)):
     try:
@@ -48,7 +48,7 @@ def get_all_users(request:Request,db: Session = Depends(get_db)):
     except Exception as e:
         return HTTPException(status_code=500,detail=Depends(str(e)))
     
-@user_router.post("/forget-password/")
+@user_router.post("/forget-password/",tags=["Auth"])
 def for_pass(user:UserForgetPassSchema,db:Session=Depends(get_db),token :str = Security(security)):
     try:
         forgetpass = user_forgot_pass(user=user,db=db,token=token)
@@ -56,7 +56,7 @@ def for_pass(user:UserForgetPassSchema,db:Session=Depends(get_db),token :str = S
     except Exception as e:
         raise HTTPException(status_code=500,detail=str(e))
 
-@user_router.post("/reset-password/")
+@user_router.post("/reset-password/",tags=["Auth"])
 def rset_password(request:UserResetPassSchema, db:Session = Depends(get_db),token :str = Security(security)):
     try:
         resetpass = user_reset_pass(request=request,db=db,token=token)
@@ -64,7 +64,7 @@ def rset_password(request:UserResetPassSchema, db:Session = Depends(get_db),toke
     except Exception as e:
         raise HTTPException(status_code=500,detail=str(e))
     
-@user_router.post("/verify-otp/")
+@user_router.post("/verify-otp/",tags=["Auth"])
 def vfy_otp(request:UserVerifyOtpSchema,db:Session=Depends(get_db)):
     try:
         verify =user_veritfy_otp(request=request,db=db)
@@ -73,7 +73,7 @@ def vfy_otp(request:UserVerifyOtpSchema,db:Session=Depends(get_db)):
     except Exception as e:
         raise HTTPException(status_code=500,detail=str(e))
 
-@user_router.delete("/user-delete/{user_id}")
+@user_router.delete("/user-delete/{user_id}",tags=["Auth"])
 def del_user(user_id:int,db:Session=Depends(get_db),token :str = Security(security)):
     try:
         dels = user_delete(user_id=user_id,db=db,token=token)

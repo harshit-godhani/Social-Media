@@ -9,7 +9,7 @@ from src.resource.userprofile.api import profile_router
 Base.metadata.create_all(bind=engine) 
 
 
-app = FastAPI()
+app = FastAPI(title="Social Media")
 
 app.include_router(user_router)
 app.include_router(post_router)

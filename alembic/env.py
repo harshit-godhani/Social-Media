@@ -2,15 +2,15 @@ from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
-from database import Base
 from src.resource.user.model import UserModel
-from src.resource.comment.model import CommentModel,CommentLikeModel
 from src.resource.post.model import PostModel,PostLikeModel
+from src.resource.comment.model import CommentModel,CommentLikeModel
 from src.resource.follower.model import UserFollowerModel
-from alembic import context
+from database import Base
 import os
 from dotenv import load_dotenv
 
+from alembic import context
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -27,8 +27,8 @@ if config.config_file_name is not None:
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
-# target_metadata = mymodel.Base.metadata
-target_metadata = None
+target_metadata = Base.metadata
+# target_metadata = None
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

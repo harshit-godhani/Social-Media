@@ -73,10 +73,10 @@ def get_post(db:Session=Depends(get_db)):
         raise HTTPException(status_code=404,detail="Not found")
 
 
-@post_router.delete("/post-delete/{post_id}/",)
+@post_router.delete("/post-delete/{post_id}/")
 def del_post(post_id:int,db:Session=Depends(get_db),token :str = Security(security)):
     try:
-        dels = delete_post(post_id=post_id,db=db)
+        dels = delete_post(post_id=post_id,db=db,token=token)
         return dels
     except Exception as e:
         raise HTTPException(status_code=500,detail=str(e))

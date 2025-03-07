@@ -73,7 +73,7 @@ def vfy_otp(request:UserVerifyOtpSchema,db:Session=Depends(get_db)):
     except Exception as e:
         raise HTTPException(status_code=500,detail=str(e))
 
-@user_router.delete("/user-delete/{user_id}",tags=["Auth"])
+@user_router.delete("/user-delete/{user_id}/",tags=["Auth"])
 def del_user(user_id:int,db:Session=Depends(get_db),token :str = Security(security)):
     try:
         dels = user_delete(user_id=user_id,db=db,token=token)

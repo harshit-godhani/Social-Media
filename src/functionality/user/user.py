@@ -61,8 +61,8 @@ def user_login(user:UserLoginSchema,db : Session =Depends(get_db)):
     if  not db_user or not verify_password(user.password,db_user.password):
         raise HTTPException(status_code=400,detail="Incorrect deatlis...!")
 
-    access_token = create_access_token(data={"sub": user.email,"id":db_user.id})
-    refresh_token = create_refresh_token(data={"sub": user.email,"id":db_user.id})
+    access_token = create_access_token(data={"id":db_user.id})
+    refresh_token = create_refresh_token(data={})
 
     return {
         "Message":"Login Successfully",

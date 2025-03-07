@@ -9,7 +9,7 @@ class PostModel(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, nullable=False)
     content = Column(Text, nullable=False)
-    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id',ondelete="cascade"), nullable=False)
     user = relationship('UserModel')
     published = Column(DateTime,default=None)
     created_at = Column(DateTime,default=datetime.utcnow())

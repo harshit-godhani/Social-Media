@@ -88,7 +88,7 @@ def new_access_token(refresh_token:HTTPAuthorizationCredentials=Security(securit
     payload = jwt.decode(token,SEC,ALO)
 
     new_access_token = create_access_token(
-        data={"sub":payload["sub"]},
+        data=(payload),
         expires_delta= timedelta(minutes=ACCESS)
     )
     return{"access_token":new_access_token}

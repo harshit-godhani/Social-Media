@@ -30,7 +30,7 @@ def send_email(to_email, subject, body):
         raise Exception(f"Error sending email: {str(e)}")
     
 def otp_genrates():
-    return str(random.randint(10000,99999))
+    return str(random.randint(1000,9999))
     
 def hash_password(password:str):
     return pwd_context.hash(password)

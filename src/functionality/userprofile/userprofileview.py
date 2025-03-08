@@ -17,6 +17,7 @@ def profile_view_user(username: UserProfileViewSchema, db: Session = Depends(get
                 "username": user_data.username,
                 "email": user_data.email,
                 "created_at": user_data.created_at,
+                "followers":user_data.follower_count,
             }
         }
     

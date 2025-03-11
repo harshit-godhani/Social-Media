@@ -13,7 +13,9 @@ def profile_view_user(username: UserProfileViewSchema, db: Session = Depends(get
     if not user_data:
         raise HTTPException(status_code=404, detail="User not found")
     return {"success": True,
-            "user": {
+            
+            "user": 
+            {
                 "username": user_data.username,
                 "email": user_data.email,
                 "created_at": user_data.created_at,

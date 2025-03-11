@@ -48,12 +48,12 @@ def create_user(user:UserSchema,db : Session = Depends (get_db)):
     except Exception as e:
         raise HTTPException(status_code=500,detail=f"Faild to send OTP email: {str(e)}")
     return {
-    "status":"Success",
-    "User_id":db_user.id,   
-    "Created_at":db_user.created_at,
-    "Email":"Your OTP send successfully --> check your email",
-    "Messgae":"Please OTP verified !!"
-    }
+        "status":True,
+        "User_id":db_user.id,   
+        "Email":"Your OTP send successfully --> Check your email",
+        "Messgae":"Please OTP verified !!",
+        "Created_at":db_user.created_at
+        }
 
 def user_login(user:UserLoginSchema,db : Session =Depends(get_db)):
     db_user = db.query(UserModel).filter(UserModel.email==user.email).first()
@@ -65,12 +65,12 @@ def user_login(user:UserLoginSchema,db : Session =Depends(get_db)):
     refresh_token = create_refresh_token(data={})
 
     return {
+        "status":True,
         "Message":"Login Successfully",
         "user_id":db_user.id,
         "access_token": access_token,
         "refresh_token": refresh_token,
         "token_type": "bearer"
-
     }
 
   
@@ -94,8 +94,11 @@ def user_forgot_pass(user:UserForgetPassSchema,db:Session=Depends(get_db),token 
         send_email(to_email=user.email,subject=subejct,body=body)
     except Exception as e:
         raise HTTPException(status_code=500,detail=f"Faild to send OTP email: {str(e)}")
-    return {"Status":"Success",
-            "Message":"OTP has been sent on your email..."}
+    
+    return {
+        "Status":True,
+        "Message":"OTP has been sent on Your E-Mail..."
+        }
 
 
 def user_veritfy_otp(request:UserVerifyOtpSchema):
@@ -110,9 +113,11 @@ def user_veritfy_otp(request:UserVerifyOtpSchema):
     
     del otp_store[request.email]
 
-    return{"Status":"Success",
+    return{
+        "Status":True,
         "message":"OTP veryfied successfully",
-        "user":"User Successfully Register"}
+        "user":"User Successfully Register"
+        }
 
 
 def user_reset_pass(request :UserResetPassSchema,db:Session = Depends(get_db),token :str = Security(security)):
@@ -134,7 +139,7 @@ def user_reset_pass(request :UserResetPassSchema,db:Session = Depends(get_db),to
     db.commit()
 
     return{
-        "Status":"Success",
+        "Status":True,
         "Message":"Password reset successfully"
     }
 
@@ -152,7 +157,8 @@ def user_delete(user_id:int,db:Session=Depends(get_db),token :str = Security(sec
     db.delete(user)
     db.commit()
       
-    return{"Status":"Success",
-           "Message":"User deleted successfully",
-           "user_id":user_id
-           }
+    return{
+        "Status":True,
+        "Message":"User deleted successfully",
+        "user_id":user_id
+        }

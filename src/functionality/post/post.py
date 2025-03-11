@@ -34,9 +34,12 @@ def create_post(post:PostSchema,db: Session=Depends(get_db), image: UploadFile=F
     db.add(db_post)
     db.commit()
     db.refresh(db_post)
-    return{"Status":"Success",
-            "message": "Post created successfully",
-        "data":{
+    return{
+        "Status":True,
+        "message": "Post created successfully",
+
+        "data":
+        {
             "Post_id": db_post.id,
             "title": db_post.title,
             "content" : db_post.content,
@@ -63,30 +66,31 @@ def post_update(post:PostUpdateSchema,db:Session=Depends(get_db),token :str = Se
     db.commit()
     db.refresh(db_post)
         
-    return{
-        "Status":"Success",
+    return {
+        "Status":True,
         "Message":"Post updated successfully",
         "Post_id":db_post.id,
         "Updated_title":db_post.title,
         "Updated_caption":db_post.content,
         "Updated_at":db_post.updated_at
-}
+    }
 
 def read_all_post(db:Session=Depends(get_db)):
     posts = db.query(PostModel).all()
     if not posts:
         raise HTTPException(status_code=404,detail="No posts found")
 
-    return{
-    "Status":"Success",
+    return {
+    "Status":True,
     "Message":"Posts found successfully",
+    
     "Data":[
         {
             "post_id":post.id,
             "title":post.title,
             "content":post.content,
             "created_at":post.created_at
-            } for post in posts
+        }   for post in posts
     
     ]
 } 
@@ -104,7 +108,7 @@ def delete_post(post_id :PostModel,db:Session=Depends(get_db),token :str = Secur
     db.delete(db_post)
     db.commit()
     return{
-        "Status":"Success",
+        "Status":True,
         "Message":"Post deleted successfully",
         "Deleted_post_id":post_id
     }

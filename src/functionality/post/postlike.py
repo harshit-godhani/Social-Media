@@ -33,6 +33,7 @@ def post_like(like: PostLikeSchema, db: Session = Depends(get_db)):
         "data":{
             "like_id": db_post_like.id,
             "user_id":db_post_like.user_id,
-            "post_id": db_post_like.post_id
+            "post_id": db_post_like.post_id,
+            "created_at":db_post_like.created_at
         }
             }

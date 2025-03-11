@@ -41,7 +41,8 @@ def create_post(post:PostSchema,db: Session=Depends(get_db), image: UploadFile=F
             "title": db_post.title,
             "content" : db_post.content,
             "user_id":db_post.user_id,
-            "image_URL" : db_post.image_url
+            "image_URL" : db_post.image_url,
+            "created_at":db_post.created_at
         }
     }
         

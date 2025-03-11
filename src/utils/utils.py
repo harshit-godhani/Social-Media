@@ -3,7 +3,7 @@ from fastapi.security import HTTPBearer
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
 from jose import jwt,JWTError
-import smtplib,random
+import smtplib,random,os
 from src.config import Config
 
 security = HTTPBearer()
@@ -16,16 +16,16 @@ refresh_token = Config.REFRESH_TOKEN
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def send_email(to_email, subject, body):
-    smtp_server = "smtp.gmail.com"
-    smtp_port = 587
-    sender_email = "godhaniharshit871@gmail.com"
-    sender_password = "qjld nqxz zqps bknw"
+    SMTP_SERVER = "smtp.gmail.com"
+    SMTP_PORT = 587
+    SENDER_EMAIL = os.getenv("SMTP_EMAIL")
+    SENDER_PASSWORD = os.getenv("SMTP_PASSWORD")
     try:
-        with smtplib.SMTP(smtp_server, smtp_port) as server:
+        with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
             server.starttls()
-            server.login(sender_email, sender_password)
+            server.login(SENDER_EMAIL, SENDER_PASSWORD)
             message = f"Subject: {subject}\n\n{body}"
-            server.sendmail(sender_email, to_email, message)
+            server.sendmail(SENDER_EMAIL, to_email, message)
     except Exception as e:
         raise Exception(f"Error sending email: {str(e)}")
     

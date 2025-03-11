@@ -28,7 +28,8 @@ def user_follower(follower:FollowerSchema,db:Session=Depends(get_db)):
 
     return {
         "success":True,
-        "message":f"you successfully followed user whoses user_id is {follower.follower_id}."
+        "message":f"you successfully followed user whoses user_id is {follower.follower_id}.",
+        "created_at":db_follower.created_at
     }
 
 def user_unfollower(unfollow_user:UnfollowSchema,db:Session=Depends(get_db)):

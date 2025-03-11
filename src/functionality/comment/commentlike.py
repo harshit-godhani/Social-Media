@@ -41,6 +41,7 @@ def comment_like(like: CommentLikeSchema, db: Session = Depends(get_db)):
             "like_id": db_comment_like.id,
             "user_id":db_comment_like.user_id,
             "comment_id" : db_comment_like.comment_id,
-            "post_id": db_comment_like.post_id
+            "post_id": db_comment_like.post_id,
+            "created_at":db_comment_like.created_at
         }
             }

@@ -9,7 +9,7 @@ services:
     ports:
       - "8001:8000"
     depends_on:
-      - postgres
+      - postgre
   postgres:
     image: postgres:latest
     ports:

@@ -2,7 +2,7 @@ from fastapi import HTTPException,Depends,Security
 from src.resource.userprofile.schema import UserProfileViewSchema,UserProfileUpdateschema
 from sqlalchemy.orm import Session
 from database import get_db
-from src.resource.user.model import UserModel
+from src.resource.user.model import UserModel 
 from src.utils.utils import hash_password,verify_token
 from fastapi.security import HTTPBearer
 

@@ -1,0 +1,128 @@
+{
+  "timestamp": "2025-04-30 14:09:52",
+  "top_gainers": [
+    {
+      "company_name": "Tankup Engineers Ltd.",
+      "current_price": 183.8,
+      "price_change": 43.75,
+      "percentage_change": 31.3
+    },
+    {
+      "company_name": "Parmeshwari Silk Mil..",
+      "current_price": 18.0,
+      "price_change": 3.0,
+      "percentage_change": 20.0
+    },
+    {
+      "company_name": "Franklin Leasing & F..",
+      "current_price": 13.2,
+      "price_change": 2.15,
+      "percentage_change": 19.6
+    },
+    {
+      "company_name": "F Mec International ..",
+      "current_price": 118.5,
+      "price_change": 17.64,
+      "percentage_change": 17.5
+    },
+    {
+      "company_name": "Chetana Education Ltd.",
+      "current_price": 114.0,
+      "price_change": 14.7,
+      "percentage_change": 14.8
+    },
+    {
+      "company_name": "Growington Ventures ..",
+      "current_price": 1.8,
+      "price_change": 0.23,
+      "percentage_change": 14.7
+    },
+    {
+      "company_name": "Jetmall Spices and M..",
+      "current_price": 10.0,
+      "price_change": 1.23,
+      "percentage_change": 14.0
+    },
+    {
+      "company_name": "Sumeru Industries Ltd.",
+      "current_price": 2.6,
+      "price_change": 0.29,
+      "percentage_change": 12.3
+    },
+    {
+      "company_name": "Novateor Research La..",
+      "current_price": 41.9,
+      "price_change": 4.4,
+      "percentage_change": 11.7
+    },
+    {
+      "company_name": "Bhaskar Agrochemical..",
+      "current_price": 72.4,
+      "price_change": 7.35,
+      "percentage_change": 11.3
+    }
+  ],
+  "top_losers": [
+    {
+      "company_name": "Jay Bee Laminations ..",
+      "current_price": 233.5,
+      "price_change": -58.35,
+      "percentage_change": -20.0
+    },
+    {
+      "company_name": "Karnimata Cold Stora..",
+      "current_price": 7.4,
+      "price_change": -1.79,
+      "percentage_change": -19.5
+    },
+    {
+      "company_name": "Aryan Shares & Stock..",
+      "current_price": 17.2,
+      "price_change": -2.49,
+      "percentage_change": -12.7
+    },
+    {
+      "company_name": "Saptak Chem And Busi..",
+      "current_price": 3.3,
+      "price_change": -0.47,
+      "percentage_change": -12.4
+    },
+    {
+      "company_name": "Premier Explosives L..",
+      "current_price": 416.9,
+      "price_change": -50.4,
+      "percentage_change": -10.8
+    },
+    {
+      "company_name": "Purple Entertainment..",
+      "current_price": 3.3,
+      "price_change": -0.39,
+      "percentage_change": -10.5
+    },
+    {
+      "company_name": "Vilas Transcore Ltd.",
+      "current_price": 356.0,
+      "price_change": -40.35,
+      "percentage_change": -10.2
+    },
+    {
+      "company_name": "Trinity League India..",
+      "current_price": 10.8,
+      "price_change": -1.2,
+      "percentage_change": -10.0
+    },
+    {
+      "company_name": "Tridev Infraestates ..",
+      "current_price": 6.7,
+      "price_change": -0.74,
+      "percentage_change": -10.0
+    },
+    {
+      "company_name": "Bothra Metals & Allo..",
+      "current_price": 10.6,
+      "price_change": -1.18,
+      "percentage_change": -10.0
+    }
+  ],
+  "insights": "Here's a summary of the market data for April 30, 2025:\n\n*   **Overall Stock Sentiment:** The market shows a mixed sentiment, with a significant number of stocks experiencing substantial gains and losses, indicating volatility and potentially sector-specific news driving performance.\n\n*   **Notable Stock Patterns:** The top gainers are largely smaller-cap companies, suggesting a potential risk-on appetite among investors or sector-specific rallies in areas like engineering, textiles, and education.\n\n*   **Key Individual Stock Movements:** Tankup Engineers Ltd. stands out with a significant 31.30% gain, while Jay Bee Laminations.. experienced a sharp 20% decline, potentially signaling company-specific news or sector weakness.\n\n*   **Stocks Performing Well and Not Well:** Tankup Engineers Ltd., Parmeshwari Silk Mil.., Franklin Leasing & F.., F Mec International .., Chetana Education Ltd., Growington Ventures .., Jetmall Spices and M.., Sumeru Industries Ltd., Novateor Research La.., and Bhaskar Agrochemical.. are performing well, while Jay Bee Laminations .., Karnimata Cold Stora.., Aryan Shares & Stock.., Saptak Chem And Busi.., Premier Explosives L.., Purple Entertainment.., Vilas Transcore Ltd., Trinity League India.., Tridev Infraestates .., and Bothra Metals & Allo.. are not performing well.\n"
+}

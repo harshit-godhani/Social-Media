@@ -11,3 +11,4 @@ class CommentLikeSchema(BaseModel):
     user_id : int
     post_id : int
     comment_id : int
+    
